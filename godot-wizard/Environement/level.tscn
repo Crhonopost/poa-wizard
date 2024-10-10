@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhkx72kg8rkca"]
+
+[ext_resource type="PackedScene" uid="uid://c0y0nqrpteykq" path="res://Environement/labyrinthe.tscn" id="1_pek31"]
+
+[node name="Level" type="Node2D"]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="Labyrinthe" parent="SubViewport" instance=ExtResource("1_pek31")]
