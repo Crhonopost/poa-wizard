@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://1xi76cuyhsiu"]
+
+[ext_resource type="Script" path="res://pattern/BehaviorTree/bt_node.gd" id="1_dviqt"]
+
+[node name="BNode" type="Node"]
+script = ExtResource("1_dviqt")

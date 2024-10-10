@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://kp38msdarku0"]
+
+[ext_resource type="Script" path="res://pattern/BehaviorTree/control/bt_control.gd" id="1_ml0pv"]
+
+[node name="BTControl" type="Node"]
+script = ExtResource("1_ml0pv")

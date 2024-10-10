@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0ejj6nm1x0mh"]
+
+[ext_resource type="Script" path="res://pattern/BehaviorTree/bt_root.gd" id="1_xdjgr"]
+[ext_resource type="Script" path="res://pattern/BehaviorTree/control/bt_sequence.gd" id="2_58h8p"]
+[ext_resource type="Script" path="res://demo/bt_leaf.gd" id="3_ngs7h"]
+[ext_resource type="Script" path="res://demo/print_state.gd" id="4_cjpf5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xbana"]
+size = Vector2(216, 141)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(487, 256)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(98, 60.5)
+shape = SubResource("RectangleShape2D_xbana")
+
+[node name="BTRoot" type="Node" parent="."]
+script = ExtResource("1_xdjgr")
+
+[node name="BTSequence" type="Node" parent="BTRoot"]
+script = ExtResource("2_58h8p")
+
+[node name="SetisIn" type="Node" parent="BTRoot/BTSequence"]
+script = ExtResource("3_ngs7h")
+
+[node name="PrintState" type="Node" parent="BTRoot/BTSequence"]
+script = ExtResource("4_cjpf5")
