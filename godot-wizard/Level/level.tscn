@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6tftftmajws1"]
+
+[ext_resource type="Script" path="res://Level/temporaire.gd" id="1_1cw78"]
+[ext_resource type="PackedScene" uid="uid://c0y0nqrpteykq" path="res://Environement/labyrinthe.tscn" id="1_rude1"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_1cw78")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(711, 470)
+zoom = Vector2(0.5, 0.5)
+
+[node name="Labyrinthe" parent="." instance=ExtResource("1_rude1")]
+
+[node name="SpawnA" type="Node2D" parent="."]
+position = Vector2(68, 421)
+
+[node name="SpawnB" type="Node2D" parent="."]
+position = Vector2(1326, 438)
+
+[node name="Label" type="Label" parent="."]
+offset_right = 1412.0
+offset_bottom = 964.0
+horizontal_alignment = 1
+vertical_alignment = 1
