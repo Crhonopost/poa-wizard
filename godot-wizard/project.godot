@@ -15,6 +15,11 @@ run/main_scene="res://wizard/wizard.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[global_group]
+
+wizard=""
+
 [layer_names]
 
 2d_physics/layer_2="projectile"
+2d_physics/layer_3="entity"
