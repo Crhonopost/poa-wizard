@@ -1,3 +1,5 @@
+@icon("res://pattern/BehaviorTree/icons/BTSequence.png")
+
 class_name BTSequence
 
 extends BTControl

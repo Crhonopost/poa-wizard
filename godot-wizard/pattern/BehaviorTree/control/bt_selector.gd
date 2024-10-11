@@ -1,3 +1,5 @@
+@icon("res://pattern/BehaviorTree/icons/BTSelector.png")
+
 class_name BTSelector
 
 extends BTControl

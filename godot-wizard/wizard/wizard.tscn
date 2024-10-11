@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3e4gb4mgrr13"]
+
+[ext_resource type="Script" path="res://pattern/BehaviorTree/bt_root.gd" id="1_2bjls"]
+[ext_resource type="Texture2D" uid="uid://dh850kptbdmvp" path="res://icon.svg" id="1_bm26m"]
+[ext_resource type="PackedScene" uid="uid://dvxi68ik6bjvq" path="res://components/life_component.tscn" id="3_l0ycs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dpn78"]
+radius = 43.9318
+
+[node name="Wizard" type="Node2D"]
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(1, 0)
+scale = Vector2(0.617188, 0.621094)
+texture = ExtResource("1_bm26m")
+
+[node name="BTRoot" type="Node" parent="."]
+script = ExtResource("1_2bjls")
+
+[node name="LifeComponent" parent="." instance=ExtResource("3_l0ycs")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LifeComponent"]
+shape = SubResource("CircleShape2D_dpn78")

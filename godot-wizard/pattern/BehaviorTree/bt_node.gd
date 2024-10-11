@@ -1,3 +1,5 @@
+@icon("res://pattern/BehaviorTree/icons/BTLeaf.png")
+
 class_name BTNode
 
 extends Node
