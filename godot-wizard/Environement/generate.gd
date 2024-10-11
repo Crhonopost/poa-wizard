@@ -16,13 +16,13 @@ var tabSpell = []
 func place_spell():
 	var placed_spell = 0
 	while placed_spell < spell_count :
-		var x = int(randf_range(-map_width+1, map_width-2))
+		var x = int(randf_range(-map_width+3, map_width-4))
 		var y = int(randf_range(-map_height-2, map_height))
 		var position = Vector2i(x, y)
 		
 		if get_cell_atlas_coords(0,position) == Vector2i(16,5):
 			tabSpell.append(position)
-			set_cell(0, position, 0,Vector2i(1, 1))
+			set_cell(1, position, 0,Vector2i(9, 5))
 			placed_spell += 1
 
 
