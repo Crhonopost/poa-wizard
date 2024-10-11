@@ -5,7 +5,7 @@ extends Node2D
 func _ready() -> void:
 	var tableauMurs = get_node("TileMap").tabWall
 	var tableauSpells = get_node("TileMap").tabSpell
-	print(tableauSpells)
+	#print(tableauSpells)
 	
 
 

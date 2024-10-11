@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3e4gb4mgrr13"]
+[gd_scene load_steps=6 format=3 uid="uid://b3e4gb4mgrr13"]
 
 [ext_resource type="Script" path="res://pattern/BehaviorTree/bt_root.gd" id="1_2bjls"]
 [ext_resource type="Texture2D" uid="uid://dh850kptbdmvp" path="res://icon.svg" id="1_bm26m"]
 [ext_resource type="PackedScene" uid="uid://dvxi68ik6bjvq" path="res://components/life_component.tscn" id="3_l0ycs"]
+[ext_resource type="Script" path="res://pattern/BehaviorTree/bt_node.gd" id="3_lwubs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dpn78"]
 radius = 43.9318
@@ -16,6 +17,9 @@ texture = ExtResource("1_bm26m")
 
 [node name="BTRoot" type="Node" parent="."]
 script = ExtResource("1_2bjls")
+
+[node name="BTNode" type="Node" parent="BTRoot"]
+script = ExtResource("3_lwubs")
 
 [node name="LifeComponent" parent="." instance=ExtResource("3_l0ycs")]
 
