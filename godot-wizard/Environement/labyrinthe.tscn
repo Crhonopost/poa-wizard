@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0y0nqrpteykq"]
+[gd_scene load_steps=4 format=3 uid="uid://c0y0nqrpteykq"]
 
 [ext_resource type="TileSet" uid="uid://b2rgsceo2wd1t" path="res://Environement/labyrinthe.tres" id="1_iba1c"]
+[ext_resource type="Script" path="res://Environement/environementClass.gd" id="1_uqx0m"]
 [ext_resource type="Script" path="res://Environement/generate.gd" id="2_b3pce"]
 
 [node name="Labyrinthe" type="Node2D"]
+script = ExtResource("1_uqx0m")
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(704, 514)

@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6tftftmajws1"]
+[gd_scene load_steps=3 format=3 uid="uid://c6tftftmajws1"]
 
+[ext_resource type="Script" path="res://Level/temporaire.gd" id="1_1cw78"]
 [ext_resource type="PackedScene" uid="uid://c0y0nqrpteykq" path="res://Environement/labyrinthe.tscn" id="1_rude1"]
 
 [node name="Level" type="Node2D"]
+script = ExtResource("1_1cw78")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(711, 470)
