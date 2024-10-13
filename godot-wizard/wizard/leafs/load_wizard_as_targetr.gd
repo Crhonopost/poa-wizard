@@ -1,6 +1,9 @@
 extends BTNode
 
-@export var wiz: Node2D
+var wiz: Node2D
+
+func initialize(blackBoard, root):
+	wiz = root.get_node(blackBoard["parent_wizard"])
 
 func tick(blackBoard: Dictionary) -> State:
 	var wizards = get_tree().get_nodes_in_group("wizard")
@@ -10,5 +13,6 @@ func tick(blackBoard: Dictionary) -> State:
 		if wizard != wiz:
 			filtered_wizards.append(wizard)
 	
-	blackBoard["position_enemy"] = filtered_wizards[0].position # trouver la position
+	if(filtered_wizards.size() > 0):
+		blackBoard["target_position"] = filtered_wizards[0].position # trouver la position
 	return State.SUCCESS

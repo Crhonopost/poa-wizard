@@ -1,20 +1,17 @@
-[gd_scene load_steps=12 format=3 uid="uid://b3e4gb4mgrr13"]
+[gd_scene load_steps=11 format=3 uid="uid://b3e4gb4mgrr13"]
 
 [ext_resource type="Script" path="res://pattern/BehaviorTree/bt_root.gd" id="1_2bjls"]
 [ext_resource type="Texture2D" uid="uid://dh850kptbdmvp" path="res://icon.svg" id="1_bm26m"]
 [ext_resource type="PackedScene" uid="uid://dvxi68ik6bjvq" path="res://components/life_component.tscn" id="3_l0ycs"]
 [ext_resource type="Script" path="res://pattern/BehaviorTree/control/bt_selector.gd" id="3_nxq2c"]
+[ext_resource type="Script" path="res://wizard/leafs/load_wizard_as_targetr.gd" id="4_40owl"]
 [ext_resource type="Script" path="res://pattern/BehaviorTree/control/bt_sequence.gd" id="4_lpusa"]
-[ext_resource type="Script" path="res://wizard/has_proj.gd" id="5_78k4v"]
-[ext_resource type="Script" path="res://wizard/set_position_target.gd" id="6_g0h7q"]
-[ext_resource type="Script" path="res://wizard/ray_cast.gd" id="7_85ayf"]
-[ext_resource type="Script" path="res://wizard/fire.gd" id="8_jql4f"]
+[ext_resource type="Script" path="res://wizard/leafs/has_proj.gd" id="5_78k4v"]
+[ext_resource type="Script" path="res://wizard/leafs/is_enemy_in_sight.gd" id="7_sf7qp"]
+[ext_resource type="Script" path="res://wizard/leafs/fire.gd" id="8_jql4f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dpn78"]
 radius = 43.9318
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_jtx2e"]
-radius = 43.909
 
 [node name="Wizard" type="Node2D" groups=["wizard"]]
 
@@ -26,50 +23,46 @@ texture = ExtResource("1_bm26m")
 [node name="BTRoot" type="Node" parent="."]
 script = ExtResource("1_2bjls")
 blackBoard = {
-"position_enemy": Vector2(0, 0),
-"projectiles": 1
+"parent_wizard": NodePath(".."),
+"projectiles": 4,
+"target_position": Vector2(0, 0)
 }
 
-[node name="main_selcetor" type="Node" parent="BTRoot"]
+[node name="initialisation" type="Node" parent="BTRoot"]
+script = ExtResource("4_lpusa")
+
+[node name="load_var" type="Node" parent="BTRoot/initialisation"]
+script = ExtResource("4_lpusa")
+
+[node name="load_other_wizard_as_target" type="Node" parent="BTRoot/initialisation/load_var"]
+script = ExtResource("4_40owl")
+
+[node name="main_selcetor" type="Node" parent="BTRoot/initialisation"]
 script = ExtResource("3_nxq2c")
 
-[node name="fire_sequence" type="Node" parent="BTRoot/main_selcetor"]
+[node name="fire_sequence" type="Node" parent="BTRoot/initialisation/main_selcetor"]
 script = ExtResource("4_lpusa")
 
-[node name="has_proj" type="Node" parent="BTRoot/main_selcetor/fire_sequence"]
+[node name="has_proj" type="Node" parent="BTRoot/initialisation/main_selcetor/fire_sequence"]
 script = ExtResource("5_78k4v")
 
-[node name="see_enemy_sequence" type="Node" parent="BTRoot/main_selcetor/fire_sequence"]
-script = ExtResource("4_lpusa")
+[node name="is_target_in_sight" type="Node" parent="BTRoot/initialisation/main_selcetor/fire_sequence"]
+script = ExtResource("7_sf7qp")
 
-[node name="set_position_target" type="Node" parent="BTRoot/main_selcetor/fire_sequence/see_enemy_sequence" node_paths=PackedStringArray("wiz")]
-script = ExtResource("6_g0h7q")
-wiz = NodePath("../../../../..")
-
-[node name="ray_cast" type="Node" parent="BTRoot/main_selcetor/fire_sequence/see_enemy_sequence" node_paths=PackedStringArray("wiz")]
-script = ExtResource("7_85ayf")
-wiz = NodePath("../../../../..")
-
-[node name="fire" type="Node" parent="BTRoot/main_selcetor"]
+[node name="fire" type="Node" parent="BTRoot/initialisation/main_selcetor/fire_sequence"]
 script = ExtResource("8_jql4f")
 
-[node name="find_enemy" type="Node" parent="BTRoot/main_selcetor"]
+[node name="find_enemy" type="Node" parent="BTRoot/initialisation/main_selcetor"]
 script = ExtResource("4_lpusa")
 
-[node name="escape" type="Node" parent="BTRoot/main_selcetor"]
+[node name="escape" type="Node" parent="BTRoot/initialisation/main_selcetor"]
 script = ExtResource("4_lpusa")
 
-[node name="find_projectile" type="Node" parent="BTRoot/main_selcetor"]
+[node name="find_projectile" type="Node" parent="BTRoot/initialisation/main_selcetor"]
 script = ExtResource("4_lpusa")
 
 [node name="LifeComponent" parent="." instance=ExtResource("3_l0ycs")]
+collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LifeComponent"]
 shape = SubResource("CircleShape2D_dpn78")
-
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_jtx2e")

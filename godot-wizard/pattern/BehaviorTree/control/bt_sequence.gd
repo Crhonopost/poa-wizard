@@ -7,6 +7,9 @@ extends BTControl
 var currentChildIdx = 0
 
 func tick(blackBoard):
+	if(childNodes.size() == 0):
+		return State.SUCCESS
+	
 	var childState = childNodes[currentChildIdx].tick(blackBoard)
 	
 	if(childState == State.FAILURE):

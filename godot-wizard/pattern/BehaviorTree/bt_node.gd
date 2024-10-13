@@ -10,5 +10,7 @@ enum State {
 	PROCESS
 }
 
+func initialize(blackBoard: Dictionary, root: BTNode):{}
+
 func tick(blackBoard: Dictionary) -> State:
 	return State.FAILURE
