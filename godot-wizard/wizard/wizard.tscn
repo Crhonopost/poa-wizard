@@ -24,7 +24,7 @@ texture = ExtResource("1_bm26m")
 script = ExtResource("1_2bjls")
 blackBoard = {
 "parent_wizard": NodePath(".."),
-"projectiles": 4,
+"projectiles": 1,
 "target_position": Vector2(0, 0)
 }
 
