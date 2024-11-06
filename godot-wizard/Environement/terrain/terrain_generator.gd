@@ -1,13 +1,19 @@
-extends TileMap
+extends Node2D
 
-var map_width = 11
-var map_height = 7
+@onready var wallMap: TileMapLayer = $Walls
+@onready var groundMap: TileMapLayer = $Ground
+
+@export var wallTileCoord: Vector2i = Vector2i(16,6)
+@export var groundTileCoord: Vector2i
+
+@export var map_width = 17
+@export var map_height = 9
 
 #id de la tuile a rajouter
 var tile_id =  1
 
 #nombre tuiles aleatoires
-var tile_count = 60
+var tile_count = 20
 var spell_count = 4
 
 var tabWall = []
@@ -20,31 +26,32 @@ func place_spell():
 		var y = int(randf_range(-map_height-2, map_height))
 		var position = Vector2i(x, y)
 		
-		if get_cell_atlas_coords(0,position) == Vector2i(16,5):
+		if wallMap.get_cell_atlas_coords(position) != wallTileCoord:
 			tabSpell.append(position)
-			set_cell(1, position, 0,Vector2i(9, 5))
+			wallMap.set_cell(position, 0 ,Vector2i(9, 5))
 			placed_spell += 1
-
+			tabSpell.append(position)
 
 func place_random_tiles():
 	var placed_tiles = 0
 	while placed_tiles < tile_count:
-		var x = int(randf_range(-map_width+1, map_width-2))
-		var y = int(randf_range(-map_height-2, map_height))
+		var x = randi_range(2, map_width-2)
+		var y = randi_range(0, map_height)
 		var position = Vector2i(x, y)
 
 
 		# Vérifie si une tuile est déjà placée à cette position dans le layer foreground
-		if get_cell_atlas_coords(0,position) == Vector2i(16,5):
+		if wallMap.get_cell_atlas_coords(position) != wallTileCoord:
 			tabWall.append(position)
 			# Place la tuile à la position générée
-			set_cell(0, position, 0,Vector2i(15, 11))
+			wallMap.set_cell(position, 0, wallTileCoord)
 			placed_tiles += 1
 
-
+func get_spawn_positions():
+	return $Spawns.get_used_cells()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print(get_cell_atlas_coords(0,Vector2i(0, 0)))
+	#print(get_cell_atlas_coords(0,Vector2i(0, 0)))
 	place_random_tiles()
 	place_spell()

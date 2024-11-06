@@ -23,8 +23,9 @@ func SwpanWiz(spawnPos):
 	
 func _ready() -> void:
 	wizard = load("res://wizard/wizard.tscn")
-	var wizA = SwpanWiz(SpawnA.position)
-	var wizB = SwpanWiz(SpawnB.position)
+	var spawnPositions = $TerrainGenerator.get_spawn_positions()
+	var wizA = SwpanWiz($TerrainGenerator.position + (Vector2) (spawnPositions[0]) * 64 + Vector2(32,32))
+	var wizB = SwpanWiz($TerrainGenerator.position + (Vector2) (spawnPositions[1]) * 64 + Vector2(32,32))
 	
 
 
