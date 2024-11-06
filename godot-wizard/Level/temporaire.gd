@@ -1,8 +1,6 @@
 extends Node2D
 
 
-@onready var SpawnA = $SpawnA
-@onready var SpawnB = $SpawnB
 var wizard
 
 func onWizardDeath():

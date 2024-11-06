@@ -13,12 +13,6 @@ zoom = Vector2(0.5, 0.5)
 [node name="TerrainGenerator" parent="." instance=ExtResource("3_i05ra")]
 position = Vector2(256, 192)
 
-[node name="SpawnA" type="Node2D" parent="."]
-position = Vector2(306, 486)
-
-[node name="SpawnB" type="Node2D" parent="."]
-position = Vector2(1272, 486)
-
 [node name="Label" type="Label" parent="."]
 visible = false
 offset_right = 1412.0

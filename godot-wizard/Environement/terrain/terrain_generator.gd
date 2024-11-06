@@ -22,8 +22,8 @@ var tabSpell = []
 func place_spell():
 	var placed_spell = 0
 	while placed_spell < spell_count :
-		var x = int(randf_range(-map_width+3, map_width-4))
-		var y = int(randf_range(-map_height-2, map_height))
+		var x = randi_range(3, map_width-4)
+		var y = randi_range(2, map_height-2)
 		var position = Vector2i(x, y)
 		
 		if wallMap.get_cell_atlas_coords(position) != wallTileCoord:
