@@ -14,5 +14,6 @@ func tick(blackBoard: Dictionary) -> State:
 	wizard.add_child(projectileInstance)
 	
 	blackBoard["projectiles"] -= 1
+	blackBoard["has_shot"] = true
 	
 	return State.SUCCESS

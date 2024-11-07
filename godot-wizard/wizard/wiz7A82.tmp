@@ -1,26 +1,20 @@
-[gd_scene load_steps=17 format=3 uid="uid://b3e4gb4mgrr13"]
+[gd_scene load_steps=12 format=3 uid="uid://b3e4gb4mgrr13"]
 
 [ext_resource type="Script" path="res://pattern/BehaviorTree/bt_root.gd" id="1_2bjls"]
 [ext_resource type="Texture2D" uid="uid://dh850kptbdmvp" path="res://icon.svg" id="1_bm26m"]
-[ext_resource type="Script" path="res://wizard/wizard.gd" id="1_j8wo3"]
 [ext_resource type="PackedScene" uid="uid://dvxi68ik6bjvq" path="res://components/life_component.tscn" id="3_l0ycs"]
 [ext_resource type="Script" path="res://pattern/BehaviorTree/control/bt_selector.gd" id="3_nxq2c"]
 [ext_resource type="Script" path="res://wizard/leafs/load_wizard_as_targetr.gd" id="4_40owl"]
 [ext_resource type="Script" path="res://pattern/BehaviorTree/control/bt_sequence.gd" id="4_lpusa"]
 [ext_resource type="Script" path="res://wizard/leafs/has_proj.gd" id="5_78k4v"]
-[ext_resource type="Script" path="res://wizard/leafs/can_play.gd" id="5_ajj1w"]
-[ext_resource type="Script" path="res://wizard/leafs/has_shot.gd" id="7_rdipm"]
-[ext_resource type="Script" path="res://pattern/BehaviorTree/decorator/bt_not.gd" id="7_rra1i"]
 [ext_resource type="Script" path="res://wizard/leafs/is_enemy_in_sight.gd" id="7_sf7qp"]
 [ext_resource type="Script" path="res://wizard/leafs/fire.gd" id="8_jql4f"]
 [ext_resource type="Script" path="res://wizard/leafs/move_to_target.gd" id="9_3s8fs"]
-[ext_resource type="Script" path="res://wizard/leafs/bt_node.gd" id="13_mh6jl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dpn78"]
 radius = 25.02
 
 [node name="Wizard" type="Node2D" groups=["wizard"]]
-script = ExtResource("1_j8wo3")
 
 [node name="Icon" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
@@ -29,20 +23,14 @@ texture = ExtResource("1_bm26m")
 [node name="BTRoot" type="Node" parent="."]
 script = ExtResource("1_2bjls")
 blackBoard = {
-"can_play": false,
-"has_shot": false,
-"moves": 3,
 "parent_wizard": NodePath(".."),
-"projectiles": 3,
+"projectiles": 1,
 "speed": 10.0,
 "target_position": Vector2(0, 0)
 }
 
 [node name="initialisation" type="Node" parent="BTRoot"]
 script = ExtResource("4_lpusa")
-
-[node name="can_play" type="Node" parent="BTRoot/initialisation"]
-script = ExtResource("5_ajj1w")
 
 [node name="load_var" type="Node" parent="BTRoot/initialisation"]
 script = ExtResource("4_lpusa")
@@ -56,12 +44,6 @@ script = ExtResource("3_nxq2c")
 [node name="fire_sequence" type="Node" parent="BTRoot/initialisation/main_selcetor"]
 script = ExtResource("4_lpusa")
 
-[node name="BTNot" type="Node" parent="BTRoot/initialisation/main_selcetor/fire_sequence"]
-script = ExtResource("7_rra1i")
-
-[node name="has_shot" type="Node" parent="BTRoot/initialisation/main_selcetor/fire_sequence/BTNot"]
-script = ExtResource("7_rdipm")
-
 [node name="has_proj" type="Node" parent="BTRoot/initialisation/main_selcetor/fire_sequence"]
 script = ExtResource("5_78k4v")
 
@@ -74,8 +56,11 @@ script = ExtResource("8_jql4f")
 [node name="move_to_target" type="Node" parent="BTRoot/initialisation/main_selcetor"]
 script = ExtResource("9_3s8fs")
 
-[node name="round_finished" type="Node" parent="BTRoot/initialisation/main_selcetor"]
-script = ExtResource("13_mh6jl")
+[node name="escape" type="Node" parent="BTRoot/initialisation/main_selcetor"]
+script = ExtResource("4_lpusa")
+
+[node name="find_projectile" type="Node" parent="BTRoot/initialisation/main_selcetor"]
+script = ExtResource("4_lpusa")
 
 [node name="LifeComponent" parent="." instance=ExtResource("3_l0ycs")]
 collision_layer = 4
@@ -84,5 +69,3 @@ collision_layer = 4
 shape = SubResource("CircleShape2D_dpn78")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-
-[connection signal="FinishedRound" from="BTRoot/initialisation/main_selcetor/round_finished" to="." method="_on_round_finished_finished_round"]

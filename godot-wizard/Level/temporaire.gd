@@ -3,6 +3,9 @@ extends Node2D
 
 var wizard
 
+var wizardsInGame = []
+var currentWizardTurn = 0
+
 func onWizardDeath():
 	#get_tree().paused = true
 	$Label.text = "un Wizard a été vaincu"  # Définir le texte du message
@@ -13,21 +16,27 @@ func onWizardDeath():
 	$Label.visible = false
 
 func SwpanWiz(spawnPos):
-	var wiz = wizard.instantiate()
+	var wiz = wizard.instantiate() as Node2D
 	add_child(wiz)
 	wiz.position = spawnPos
 	wiz.get_node("LifeComponent").connect("dead",onWizardDeath)
-	return wiz
+	wizardsInGame.append(wiz)
+	wiz.connect("finishedRound", nextWizardTurn)
 	
 func _ready() -> void:
 	wizard = load("res://wizard/wizard.tscn")
 	var spawnPositions = $TerrainGenerator.get_spawn_positions()
-	var wizA = SwpanWiz($TerrainGenerator.position + (Vector2) (spawnPositions[0]) * 64 + Vector2(32,32))
-	var wizB = SwpanWiz($TerrainGenerator.position + (Vector2) (spawnPositions[1]) * 64 + Vector2(32,32))
+	SwpanWiz($TerrainGenerator.position + (Vector2) (spawnPositions[0]) * 64 + Vector2(32,32))
+	SwpanWiz($TerrainGenerator.position + (Vector2) (spawnPositions[1]) * 64 + Vector2(32,32))
+	
+	nextWizardTurn()
 	
 
+func turnFinished():
+	var timer = get_tree().create_timer(2)
+	timer.connect("timeout", nextWizardTurn())
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func nextWizardTurn():
+	currentWizardTurn = (currentWizardTurn + 1)%wizardsInGame.size()
+	var wiz = wizardsInGame[currentWizardTurn]
+	wiz.restoreRoundState()
