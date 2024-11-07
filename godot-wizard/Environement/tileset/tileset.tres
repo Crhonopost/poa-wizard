@@ -1,9 +1,21 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://btj8yue7ym07q"]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://ct2m58b34u201"]
 
-[ext_resource type="Texture2D" uid="uid://b50k5qyhwoq38" path="res://Environement/kenney_abstract-platformer/Tilesheet/tilesheet_complete.png" id="1_5dx3q"]
+[ext_resource type="Texture2D" uid="uid://b50k5qyhwoq38" path="res://Environement/kenney_abstract-platformer/Tilesheet/tilesheet_complete.png" id="1_sfr3a"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_45e0c"]
+vertices = PackedVector2Array(32, 32, -32, 32, -32, -32, 32, -32)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)])
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_lyjvs"]
+vertices = PackedVector2Array(32, 32, -32, 32, -32, -32, 32, -32)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)])
+agent_radius = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5yvvl"]
-texture = ExtResource("1_5dx3q")
+texture = ExtResource("1_sfr3a")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 1:0/0 = 0
@@ -72,6 +84,7 @@ texture_region_size = Vector2i(64, 64)
 20:2/0 = 0
 21:2/0 = 0
 0:3/0 = 0
+0:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_45e0c")
 1:3/0 = 0
 2:3/0 = 0
 3:3/0 = 0
@@ -260,7 +273,9 @@ texture_region_size = Vector2i(64, 64)
 11:11/0 = 0
 12:11/0 = 0
 13:11/0 = 0
+13:11/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_lyjvs")
 14:11/0 = 0
+14:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 15:11/0 = 0
 15:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 16:11/0 = 0
@@ -273,4 +288,6 @@ texture_region_size = Vector2i(64, 64)
 [resource]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 0
+navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_5yvvl")
