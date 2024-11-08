@@ -1,0 +1,108 @@
+[gd_scene load_steps=16 format=3 uid="uid://c2wjp85lgi74c"]
+
+[ext_resource type="Texture2D" uid="uid://dbb0g8va6nc0e" path="res://wizard/Mage Idle.png" id="1_ifr1e"]
+[ext_resource type="Texture2D" uid="uid://neoelr4vt2y7" path="res://wizard/mage_modifie.png" id="2_ixvsm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twusv"]
+atlas = ExtResource("1_ifr1e")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfm84"]
+atlas = ExtResource("1_ifr1e")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcuw7"]
+atlas = ExtResource("1_ifr1e")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53gwl"]
+atlas = ExtResource("1_ifr1e")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmcw3"]
+atlas = ExtResource("1_ifr1e")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8ugd"]
+atlas = ExtResource("1_ifr1e")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6465a"]
+atlas = ExtResource("2_ixvsm")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_44td8"]
+atlas = ExtResource("2_ixvsm")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ol4o7"]
+atlas = ExtResource("2_ixvsm")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xuve"]
+atlas = ExtResource("2_ixvsm")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dybfc"]
+atlas = ExtResource("2_ixvsm")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r35xt"]
+atlas = ExtResource("2_ixvsm")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pohe8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_twusv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pfm84")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcuw7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53gwl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lmcw3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u8ugd")
+}],
+"loop": true,
+"name": &"wizardA",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6465a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_44td8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ol4o7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xuve")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dybfc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r35xt")
+}],
+"loop": true,
+"name": &"wizardB",
+"speed": 5.0
+}]
+
+[node name="WizardIdle" type="AnimatedSprite2D"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_pohe8")
+animation = &"wizardA"
+autoplay = "wizardA"
+frame_progress = 0.316452

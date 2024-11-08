@@ -18,19 +18,20 @@ func SwpanWiz(spawnPos):
 	wiz.get_node("LifeComponent").connect("dead",onWizardDeath)
 	wizardsInGame.append(wiz)
 	wiz.connect("finishedRound", turnFinished)
+	return wiz
 	
 func _ready() -> void:
 	wizard = load("res://wizard/wizard.tscn")
 	var spawnPositions = $TerrainGenerator.get_spawn_positions()
-	SwpanWiz($TerrainGenerator.position + (Vector2) (spawnPositions[0]) * 64 + Vector2(32,32))
-	SwpanWiz($TerrainGenerator.position + (Vector2) (spawnPositions[1]) * 64 + Vector2(32,32))
+	SwpanWiz($TerrainGenerator.position + (Vector2) (spawnPositions[0]) * 64 + Vector2(32,32)).setTeam("A")
+	SwpanWiz($TerrainGenerator.position + (Vector2) (spawnPositions[1]) * 64 + Vector2(32,32)).setTeam("B")
 	
 	nextWizardTurn()
 	
 
 func turnFinished():
 	if(gameFinished): return
-	var timer = get_tree().create_timer(5)
+	var timer = get_tree().create_timer(1)
 	timer.connect("timeout", nextWizardTurn)
 
 func nextWizardTurn():

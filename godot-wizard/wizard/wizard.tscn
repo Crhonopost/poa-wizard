@@ -1,7 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://b3e4gb4mgrr13"]
+[gd_scene load_steps=18 format=3 uid="uid://b3e4gb4mgrr13"]
 
 [ext_resource type="Script" path="res://pattern/BehaviorTree/bt_root.gd" id="1_2bjls"]
-[ext_resource type="Texture2D" uid="uid://dh850kptbdmvp" path="res://icon.svg" id="1_bm26m"]
 [ext_resource type="Script" path="res://wizard/wizard.gd" id="1_j8wo3"]
 [ext_resource type="PackedScene" uid="uid://dvxi68ik6bjvq" path="res://components/life_component.tscn" id="3_l0ycs"]
 [ext_resource type="Script" path="res://pattern/BehaviorTree/control/bt_selector.gd" id="3_nxq2c"]
@@ -14,17 +13,15 @@
 [ext_resource type="Script" path="res://wizard/leafs/is_enemy_in_sight.gd" id="7_sf7qp"]
 [ext_resource type="Script" path="res://wizard/leafs/fire.gd" id="8_jql4f"]
 [ext_resource type="Script" path="res://wizard/leafs/move_to_target.gd" id="9_3s8fs"]
+[ext_resource type="Script" path="res://wizard/leafs/is_target_to_close.gd" id="12_0fs6d"]
 [ext_resource type="Script" path="res://wizard/leafs/bt_node.gd" id="13_mh6jl"]
+[ext_resource type="PackedScene" uid="uid://c2wjp85lgi74c" path="res://wizard/wizardIdle.tscn" id="15_4pb2k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dpn78"]
 radius = 25.02
 
 [node name="Wizard" type="Node2D" groups=["wizard"]]
 script = ExtResource("1_j8wo3")
-
-[node name="Icon" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_bm26m")
 
 [node name="BTRoot" type="Node" parent="."]
 script = ExtResource("1_2bjls")
@@ -38,43 +35,52 @@ blackBoard = {
 "target_position": Vector2(0, 0)
 }
 
-[node name="initialisation" type="Node" parent="BTRoot"]
+[node name="sequence" type="Node" parent="BTRoot"]
 script = ExtResource("4_lpusa")
 
-[node name="can_play" type="Node" parent="BTRoot/initialisation"]
+[node name="can_play" type="Node" parent="BTRoot/sequence"]
 script = ExtResource("5_ajj1w")
 
-[node name="load_var" type="Node" parent="BTRoot/initialisation"]
+[node name="load_var" type="Node" parent="BTRoot/sequence"]
 script = ExtResource("4_lpusa")
 
-[node name="load_other_wizard_as_target" type="Node" parent="BTRoot/initialisation/load_var"]
+[node name="load_other_wizard_as_target" type="Node" parent="BTRoot/sequence/load_var"]
 script = ExtResource("4_40owl")
 
-[node name="main_selcetor" type="Node" parent="BTRoot/initialisation"]
+[node name="main_selector" type="Node" parent="BTRoot/sequence"]
 script = ExtResource("3_nxq2c")
 
-[node name="fire_sequence" type="Node" parent="BTRoot/initialisation/main_selcetor"]
+[node name="fire_sequence" type="Node" parent="BTRoot/sequence/main_selector"]
 script = ExtResource("4_lpusa")
 
-[node name="BTNot" type="Node" parent="BTRoot/initialisation/main_selcetor/fire_sequence"]
+[node name="BTNot" type="Node" parent="BTRoot/sequence/main_selector/fire_sequence"]
 script = ExtResource("7_rra1i")
 
-[node name="has_shot" type="Node" parent="BTRoot/initialisation/main_selcetor/fire_sequence/BTNot"]
+[node name="has_shot" type="Node" parent="BTRoot/sequence/main_selector/fire_sequence/BTNot"]
 script = ExtResource("7_rdipm")
 
-[node name="has_proj" type="Node" parent="BTRoot/initialisation/main_selcetor/fire_sequence"]
+[node name="has_proj" type="Node" parent="BTRoot/sequence/main_selector/fire_sequence"]
 script = ExtResource("5_78k4v")
 
-[node name="is_target_in_sight" type="Node" parent="BTRoot/initialisation/main_selcetor/fire_sequence"]
+[node name="is_target_in_sight" type="Node" parent="BTRoot/sequence/main_selector/fire_sequence"]
 script = ExtResource("7_sf7qp")
 
-[node name="fire" type="Node" parent="BTRoot/initialisation/main_selcetor/fire_sequence"]
+[node name="fire" type="Node" parent="BTRoot/sequence/main_selector/fire_sequence"]
 script = ExtResource("8_jql4f")
 
-[node name="move_to_target" type="Node" parent="BTRoot/initialisation/main_selcetor"]
+[node name="move_to_target" type="Node" parent="BTRoot/sequence/main_selector"]
+script = ExtResource("4_lpusa")
+
+[node name="BTNot" type="Node" parent="BTRoot/sequence/main_selector/move_to_target"]
+script = ExtResource("7_rra1i")
+
+[node name="is_target_to_close" type="Node" parent="BTRoot/sequence/main_selector/move_to_target/BTNot"]
+script = ExtResource("12_0fs6d")
+
+[node name="move_to_target" type="Node" parent="BTRoot/sequence/main_selector/move_to_target"]
 script = ExtResource("9_3s8fs")
 
-[node name="round_finished" type="Node" parent="BTRoot/initialisation/main_selcetor"]
+[node name="round_finished" type="Node" parent="BTRoot/sequence/main_selector"]
 script = ExtResource("13_mh6jl")
 
 [node name="LifeComponent" parent="." instance=ExtResource("3_l0ycs")]
@@ -86,8 +92,13 @@ shape = SubResource("CircleShape2D_dpn78")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 5.0
 target_desired_distance = 5.0
+path_max_distance = 64.0
 path_postprocessing = 1
 debug_enabled = true
 debug_path_custom_color = Color(0.188235, 1, 0.188235, 1)
 
-[connection signal="FinishedRound" from="BTRoot/initialisation/main_selcetor/round_finished" to="." method="_on_round_finished_finished_round"]
+[node name="WizardIdle" parent="." instance=ExtResource("15_4pb2k")]
+position = Vector2(8, -1)
+scale = Vector2(2.0625, 2.0625)
+
+[connection signal="FinishedRound" from="BTRoot/sequence/main_selector/round_finished" to="." method="_on_round_finished_finished_round"]
