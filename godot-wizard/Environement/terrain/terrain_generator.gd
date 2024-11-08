@@ -20,6 +20,8 @@ var spell_count = 4
 var tabWall = []
 var tabSpell = []
 
+@onready var flowerPackedScene = load("res://Environement/flower.tscn")
+
 func place_spell():
 	var placed_spell = 0
 	while placed_spell < spell_count :
@@ -28,10 +30,14 @@ func place_spell():
 		var position = Vector2i(x, y)
 		
 		if wallMap.get_cell_atlas_coords(position) != wallTileCoord:
-			tabSpell.append(position)
-			wallMap.set_cell(position, 0 ,Vector2i(9, 5))
+			var globalPosition = global_position + groundMap.map_to_local(position)
+			
+			var flower : Node2D = flowerPackedScene.instantiate()
+			wallMap.add_child(flower)
+			flower.global_position = globalPosition
+			
 			placed_spell += 1
-			tabSpell.append(position)
+			tabSpell.append(globalPosition)
 
 func place_random_tiles():
 	var placed_tiles = 0

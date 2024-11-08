@@ -1,12 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://c6tftftmajws1"]
 
 [ext_resource type="Script" path="res://Level/level.gd" id="1_1cw78"]
+[ext_resource type="Script" path="res://Level/environementInterface.gd" id="2_e4lgw"]
 [ext_resource type="PackedScene" uid="uid://ycu0wygg2xmh" path="res://Environement/terrain/terrain_generator.tscn" id="3_i05ra"]
 [ext_resource type="PackedScene" uid="uid://d36tw4r4q2nc2" path="res://UI/ui.tscn" id="3_p17gy"]
-[ext_resource type="PackedScene" uid="uid://dawlr045yvdmt" path="res://Environement/flower.tscn" id="4_hksno"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_1cw78")
+
+[node name="Environement" type="Node" parent="."]
+script = ExtResource("2_e4lgw")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(711, 470)
@@ -19,12 +22,3 @@ position = Vector2(256, 192)
 metadata/_edit_use_anchors_ = true
 
 [node name="Projectiles" type="Node2D" parent="." groups=["fixed_space"]]
-
-[node name="Flower" parent="." instance=ExtResource("4_hksno")]
-position = Vector2(793, 671)
-
-[node name="Flower2" parent="." instance=ExtResource("4_hksno")]
-position = Vector2(795, 512)
-
-[node name="Flower3" parent="." instance=ExtResource("4_hksno")]
-position = Vector2(790, 335)

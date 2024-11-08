@@ -57,7 +57,7 @@ shape = SubResource("CircleShape2D_rqmkm")
 scale = Vector2(0.0187988, 0.0187988)
 sprite_frames = SubResource("SpriteFrames_jd8bf")
 autoplay = "default"
-frame_progress = 0.0253027
+frame_progress = 0.0872206
 
 [connection signal="body_entered" from="DamageComponent" to="." method="_on_damage_component_body_entered"]
 [connection signal="damageDealt" from="DamageComponent" to="." method="_on_damage_component_damage_dealt"]
