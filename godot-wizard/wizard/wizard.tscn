@@ -86,6 +86,15 @@ script = ExtResource("5_78k4v")
 [node name="move_to_proj" type="Node" parent="BTRoot/sequence/main_selector/search_sequence"]
 script = ExtResource("13_3a4bc")
 
+[node name="flee_sequence" type="Node" parent="BTRoot/sequence/main_selector"]
+script = ExtResource("4_lpusa")
+
+[node name="has_shot" type="Node" parent="BTRoot/sequence/main_selector/flee_sequence"]
+script = ExtResource("7_rdipm")
+
+[node name="move_to_proj" type="Node" parent="BTRoot/sequence/main_selector/flee_sequence"]
+script = ExtResource("13_3a4bc")
+
 [node name="move_to_target" type="Node" parent="BTRoot/sequence/main_selector"]
 script = ExtResource("4_lpusa")
 
