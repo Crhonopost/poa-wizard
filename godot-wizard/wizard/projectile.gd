@@ -10,6 +10,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	global_position += direction * speed * delta
+	$AnimatedSprite2D.rotation = direction.angle()
 
 
 func _on_damage_component_damage_dealt() -> void:

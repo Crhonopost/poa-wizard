@@ -1,19 +1,50 @@
-[gd_scene load_steps=5 format=3 uid="uid://4r08pryinl4b"]
+[gd_scene load_steps=10 format=3 uid="uid://4r08pryinl4b"]
 
 [ext_resource type="Script" path="res://wizard/projectile.gd" id="1_ntgo4"]
-[ext_resource type="Texture2D" uid="uid://b7stfc66wwrio" path="res://fire-ball.png" id="1_ost2w"]
 [ext_resource type="PackedScene" uid="uid://br6s2mo3y0svn" path="res://components/damage_component.tscn" id="2_juyd1"]
+[ext_resource type="Texture2D" uid="uid://o86f6fkq0dsd" path="res://wizard/Fireball.png" id="3_qdeps"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rqmkm"]
 radius = 8.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8vxvo"]
+atlas = ExtResource("3_qdeps")
+region = Rect2(0, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41eok"]
+atlas = ExtResource("3_qdeps")
+region = Rect2(1024, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0arqf"]
+atlas = ExtResource("3_qdeps")
+region = Rect2(0, 1024, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kj136"]
+atlas = ExtResource("3_qdeps")
+region = Rect2(1024, 1024, 1024, 1024)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jd8bf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8vxvo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41eok")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0arqf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kj136")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}]
+
 [node name="Projectile" type="Node2D"]
 script = ExtResource("1_ntgo4")
-
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(-1.90735e-06, -5.72205e-06)
-scale = Vector2(0.054, 0.054)
-texture = ExtResource("1_ost2w")
 
 [node name="DamageComponent" parent="." instance=ExtResource("2_juyd1")]
 collision_layer = 2
@@ -21,6 +52,12 @@ collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageComponent"]
 shape = SubResource("CircleShape2D_rqmkm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.0187988, 0.0187988)
+sprite_frames = SubResource("SpriteFrames_jd8bf")
+autoplay = "default"
+frame_progress = 0.0253027
 
 [connection signal="body_entered" from="DamageComponent" to="." method="_on_damage_component_body_entered"]
 [connection signal="damageDealt" from="DamageComponent" to="." method="_on_damage_component_damage_dealt"]
