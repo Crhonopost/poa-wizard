@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b3e4gb4mgrr13"]
+[gd_scene load_steps=20 format=3 uid="uid://b3e4gb4mgrr13"]
 
 [ext_resource type="Script" path="res://pattern/BehaviorTree/bt_root.gd" id="1_2bjls"]
 [ext_resource type="Script" path="res://wizard/wizard.gd" id="1_j8wo3"]
@@ -8,14 +8,16 @@
 [ext_resource type="Script" path="res://pattern/BehaviorTree/control/bt_sequence.gd" id="4_lpusa"]
 [ext_resource type="Script" path="res://wizard/leafs/has_proj.gd" id="5_78k4v"]
 [ext_resource type="Script" path="res://wizard/leafs/can_play.gd" id="5_ajj1w"]
+[ext_resource type="Script" path="res://wizard/load_flower_position.gd" id="6_t260k"]
 [ext_resource type="Script" path="res://wizard/leafs/has_shot.gd" id="7_rdipm"]
 [ext_resource type="Script" path="res://pattern/BehaviorTree/decorator/bt_not.gd" id="7_rra1i"]
 [ext_resource type="Script" path="res://wizard/leafs/is_enemy_in_sight.gd" id="7_sf7qp"]
 [ext_resource type="Script" path="res://wizard/leafs/fire.gd" id="8_jql4f"]
 [ext_resource type="Script" path="res://wizard/leafs/move_to_target.gd" id="9_3s8fs"]
 [ext_resource type="Script" path="res://wizard/leafs/is_target_to_close.gd" id="12_0fs6d"]
+[ext_resource type="Script" path="res://wizard/move_to_proj.gd" id="13_3a4bc"]
 [ext_resource type="Script" path="res://wizard/leafs/bt_node.gd" id="13_mh6jl"]
-[ext_resource type="PackedScene" uid="uid://c2wjp85lgi74c" path="res://wizard/wizardIdle.tscn" id="15_4pb2k"]
+[ext_resource type="PackedScene" path="res://wizard/wizardIdle.tscn" id="15_4pb2k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dpn78"]
 radius = 25.02
@@ -27,6 +29,7 @@ script = ExtResource("1_j8wo3")
 script = ExtResource("1_2bjls")
 blackBoard = {
 "can_play": false,
+"flower_positioin": Vector2(0, 0),
 "has_shot": false,
 "moves": 3,
 "parent_wizard": NodePath(".."),
@@ -46,6 +49,9 @@ script = ExtResource("4_lpusa")
 
 [node name="load_other_wizard_as_target" type="Node" parent="BTRoot/sequence/load_var"]
 script = ExtResource("4_40owl")
+
+[node name="load_flower_position" type="Node" parent="BTRoot/sequence/load_var"]
+script = ExtResource("6_t260k")
 
 [node name="main_selector" type="Node" parent="BTRoot/sequence"]
 script = ExtResource("3_nxq2c")
@@ -68,8 +74,23 @@ script = ExtResource("7_sf7qp")
 [node name="fire" type="Node" parent="BTRoot/sequence/main_selector/fire_sequence"]
 script = ExtResource("8_jql4f")
 
+[node name="search_sequence" type="Node" parent="BTRoot/sequence/main_selector"]
+script = ExtResource("4_lpusa")
+
+[node name="BTNot" type="Node" parent="BTRoot/sequence/main_selector/search_sequence"]
+script = ExtResource("7_rra1i")
+
+[node name="has_proj" type="Node" parent="BTRoot/sequence/main_selector/search_sequence/BTNot"]
+script = ExtResource("5_78k4v")
+
+[node name="move_to_proj" type="Node" parent="BTRoot/sequence/main_selector/search_sequence"]
+script = ExtResource("13_3a4bc")
+
 [node name="move_to_target" type="Node" parent="BTRoot/sequence/main_selector"]
 script = ExtResource("4_lpusa")
+
+[node name="has_proj" type="Node" parent="BTRoot/sequence/main_selector/move_to_target"]
+script = ExtResource("5_78k4v")
 
 [node name="BTNot" type="Node" parent="BTRoot/sequence/main_selector/move_to_target"]
 script = ExtResource("7_rra1i")
