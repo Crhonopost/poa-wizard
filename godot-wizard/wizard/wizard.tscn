@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b3e4gb4mgrr13"]
+[gd_scene load_steps=19 format=3 uid="uid://b3e4gb4mgrr13"]
 
 [ext_resource type="Script" path="res://pattern/BehaviorTree/bt_root.gd" id="1_2bjls"]
 [ext_resource type="Script" path="res://wizard/wizard.gd" id="1_j8wo3"]
@@ -20,6 +20,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_dpn78"]
 radius = 25.02
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_e01md"]
+radius = 25.02
+
 [node name="Wizard" type="Node2D" groups=["wizard"]]
 script = ExtResource("1_j8wo3")
 
@@ -30,7 +33,7 @@ blackBoard = {
 "has_shot": false,
 "moves": 3,
 "parent_wizard": NodePath(".."),
-"projectiles": 3,
+"projectiles": 0,
 "speed": 10.0,
 "target_position": Vector2(0, 0)
 }
@@ -97,8 +100,17 @@ path_postprocessing = 1
 debug_enabled = true
 debug_path_custom_color = Color(0.188235, 1, 0.188235, 1)
 
+[node name="ColectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColectionArea"]
+shape = SubResource("CircleShape2D_e01md")
+debug_color = Color(0.969351, 0.0587542, 0.420615, 0.42)
+
 [node name="WizardIdle" parent="." instance=ExtResource("15_4pb2k")]
 position = Vector2(8, -1)
 scale = Vector2(2.0625, 2.0625)
 
 [connection signal="FinishedRound" from="BTRoot/sequence/main_selector/round_finished" to="." method="_on_round_finished_finished_round"]
+[connection signal="area_entered" from="ColectionArea" to="." method="_on_colection_area_area_entered"]
