@@ -5,15 +5,11 @@ var wizard
 
 var wizardsInGame = []
 var currentWizardTurn = 0
+var gameFinished = false
 
 func onWizardDeath():
-	#get_tree().paused = true
-	$Label.text = "un Wizard a été vaincu"  # Définir le texte du message
-	$Label.visible = true  # Rendre le label visible pour afficher le message
-	get_tree().paused = true  # Met en pause la scène
-	await get_tree().create_timer(2.0).timeout  # Attendre 2 secondes
-	get_tree().paused = false  # Reprendre la scène après 2 secondes
-	$Label.visible = false
+	gameFinished = false
+	$UI.logMessage("un Wizard a été vaincu")
 
 func SwpanWiz(spawnPos):
 	var wiz = wizard.instantiate() as Node2D
@@ -21,7 +17,7 @@ func SwpanWiz(spawnPos):
 	wiz.position = spawnPos
 	wiz.get_node("LifeComponent").connect("dead",onWizardDeath)
 	wizardsInGame.append(wiz)
-	wiz.connect("finishedRound", nextWizardTurn)
+	wiz.connect("finishedRound", turnFinished)
 	
 func _ready() -> void:
 	wizard = load("res://wizard/wizard.tscn")
@@ -33,10 +29,11 @@ func _ready() -> void:
 	
 
 func turnFinished():
-	var timer = get_tree().create_timer(2)
-	timer.connect("timeout", nextWizardTurn())
+	if(gameFinished): return
+	var timer = get_tree().create_timer(5)
+	timer.connect("timeout", nextWizardTurn)
 
 func nextWizardTurn():
-	currentWizardTurn = (currentWizardTurn + 1)%wizardsInGame.size()
 	var wiz = wizardsInGame[currentWizardTurn]
 	wiz.restoreRoundState()
+	currentWizardTurn = (currentWizardTurn + 1)%wizardsInGame.size()

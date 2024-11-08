@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://d36tw4r4q2nc2"]
+
+[ext_resource type="Script" path="res://UI/ui.gd" id="1_v3tr6"]
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v3tr6")
+
+[node name="log" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+alignment = 1

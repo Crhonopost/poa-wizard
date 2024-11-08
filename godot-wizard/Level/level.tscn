@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c6tftftmajws1"]
+[gd_scene load_steps=4 format=3 uid="uid://c6tftftmajws1"]
 
 [ext_resource type="Script" path="res://Level/temporaire.gd" id="1_1cw78"]
 [ext_resource type="PackedScene" uid="uid://ycu0wygg2xmh" path="res://Environement/terrain/terrain_generator.tscn" id="3_i05ra"]
+[ext_resource type="PackedScene" uid="uid://d36tw4r4q2nc2" path="res://UI/ui.tscn" id="3_p17gy"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_1cw78")
@@ -13,9 +14,5 @@ zoom = Vector2(0.5, 0.5)
 [node name="TerrainGenerator" parent="." instance=ExtResource("3_i05ra")]
 position = Vector2(256, 192)
 
-[node name="Label" type="Label" parent="."]
-visible = false
-offset_right = 1412.0
-offset_bottom = 964.0
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="UI" parent="." instance=ExtResource("3_p17gy")]
+metadata/_edit_use_anchors_ = true
