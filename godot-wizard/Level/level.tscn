@@ -16,3 +16,5 @@ position = Vector2(256, 192)
 
 [node name="UI" parent="." instance=ExtResource("3_p17gy")]
 metadata/_edit_use_anchors_ = true
+
+[node name="Node2D" type="Node2D" parent="." groups=["fixed_space"]]
