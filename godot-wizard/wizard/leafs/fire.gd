@@ -9,9 +9,9 @@ func initialize(blackBoard, root):
 func tick(blackBoard: Dictionary) -> State:
 	var projectileInstance: Projectile = projectile.instantiate()
 	projectileInstance.direction = (blackBoard["target_position"] - wizard.position).normalized()
-	projectileInstance.spawnPosition = projectileInstance.direction * 75
+	projectileInstance.spawnPosition = projectileInstance.direction * 50 + wizard.global_position
 	
-	wizard.add_child(projectileInstance)
+	get_tree().get_nodes_in_group("fixed_space")[0].add_child(projectileInstance)
 	
 	blackBoard["projectiles"] -= 1
 	blackBoard["has_shot"] = true

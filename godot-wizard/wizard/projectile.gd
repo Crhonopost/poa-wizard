@@ -2,7 +2,7 @@ class_name Projectile
 extends Node2D
 
 @export var direction = Vector2.ZERO
-@export var speed : float = 100
+@export var speed : float = 500
 var spawnPosition = Vector2.ZERO
 
 func _ready() -> void:
