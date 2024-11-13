@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c2wjp85lgi74c"]
+[gd_scene load_steps=16 format=3 uid="uid://ca0a0qceu1jl2"]
 
 [ext_resource type="Texture2D" uid="uid://dbb0g8va6nc0e" path="res://wizard/Mage Idle.png" id="1_ifr1e"]
 [ext_resource type="Texture2D" uid="uid://neoelr4vt2y7" path="res://wizard/mage_modifie.png" id="2_ixvsm"]

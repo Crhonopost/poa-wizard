@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhkx72kg8rkca"]
+[gd_scene load_steps=2 format=3 uid="uid://dngsm14alky1o"]
 
-[ext_resource type="PackedScene" uid="uid://c0y0nqrpteykq" path="res://Environement/labyrinthe.tscn" id="1_pek31"]
+[ext_resource type="PackedScene" uid="uid://bvnt166wuborw" path="res://Environement/labyrinthe.tscn" id="1_pek31"]
 
 [node name="Level" type="Node2D"]
 

@@ -8,7 +8,7 @@
 [node name="Level" type="Node2D"]
 script = ExtResource("1_1cw78")
 
-[node name="Environement" type="Node" parent="."]
+[node name="Environement" type="Node" parent="." groups=["environement"]]
 script = ExtResource("2_e4lgw")
 
 [node name="Camera2D" type="Camera2D" parent="."]

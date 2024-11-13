@@ -17,7 +17,7 @@
 [ext_resource type="Script" path="res://wizard/leafs/is_target_to_close.gd" id="12_0fs6d"]
 [ext_resource type="Script" path="res://wizard/move_to_proj.gd" id="13_3a4bc"]
 [ext_resource type="Script" path="res://wizard/leafs/bt_node.gd" id="13_mh6jl"]
-[ext_resource type="PackedScene" uid="uid://c2wjp85lgi74c" path="res://wizard/wizardIdle.tscn" id="15_4pb2k"]
+[ext_resource type="PackedScene" uid="uid://ca0a0qceu1jl2" path="res://wizard/wizardIdle.tscn" id="15_4pb2k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dpn78"]
 radius = 25.02

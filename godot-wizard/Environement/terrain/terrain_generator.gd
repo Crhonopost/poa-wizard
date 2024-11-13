@@ -18,26 +18,46 @@ var tile_count = 20
 var spell_count = 4
 
 var tabWall = []
-var tabSpell = []
+
+var placedSpells = []
 
 @onready var flowerPackedScene = load("res://Environement/flower.tscn")
 
-func place_spell():
-	var placed_spell = 0
-	while placed_spell < spell_count :
+func check_flowers():
+	var i = 0
+	while i<placedSpells.size():
+		var ref = weakref(placedSpells[i])
+		if(ref.get_ref() == null):
+			placedSpells.remove_at(i)
+		i+=1
+	
+	while placedSpells.size() < 3:
+		place_random_spell()
+
+func place_random_spell():
+	var placementOk = false
+	while !placementOk:
 		var x = randi_range(3, map_width-4)
 		var y = randi_range(2, map_height-2)
 		var position = Vector2i(x, y)
 		
-		if wallMap.get_cell_atlas_coords(position) != wallTileCoord:
-			var globalPosition = global_position + groundMap.map_to_local(position)
-			
+		var globalPosition = global_position + groundMap.map_to_local(position)
+		
+		var verification = func (node) -> bool:
+			return node.global_position == globalPosition
+		
+		if wallMap.get_cell_atlas_coords(position) != wallTileCoord && !placedSpells.any(verification):
 			var flower : Node2D = flowerPackedScene.instantiate()
 			wallMap.add_child(flower)
+			placedSpells.append(flower)
 			flower.global_position = globalPosition
-			
-			placed_spell += 1
-			tabSpell.append(globalPosition)
+			placementOk = true
+
+func place_spells():
+	var placed_spell = 0
+	while placed_spell < spell_count :
+		place_random_spell()
+		placed_spell += 1
 
 func place_random_tiles():
 	var placed_tiles = 0
@@ -57,8 +77,17 @@ func place_random_tiles():
 func get_spawn_positions():
 	return $Spawns.get_used_cells()
 
+func get_spell_positions():
+	check_flowers()
+	var callable = func (node):
+		return node.global_position
+	return placedSpells.map(callable)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#print(get_cell_atlas_coords(0,Vector2i(0, 0)))
 	place_random_tiles()
-	place_spell()
+	place_spells()
+
+func _physics_process(delta: float) -> void:
+	check_flowers()
