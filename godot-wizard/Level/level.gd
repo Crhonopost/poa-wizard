@@ -7,27 +7,36 @@ var wizardsInGame = []
 var currentWizardTurn = 0
 var gameFinished = false
 
-func onWizardDeath():
-	gameFinished = false
-	$UI.logMessage("un Wizard a été vaincu")
+signal gameStarted
+signal gameEnded(winner: String)
 
-func SwpanWiz(spawnPos):
+func SpawnWiz(spawnPos, team):
 	var wiz = wizard.instantiate() as Node2D
 	add_child(wiz)
 	wiz.position = spawnPos
-	wiz.get_node("LifeComponent").connect("dead",onWizardDeath)
+	wiz.setTeam(team)
+	
+	var callback = func ():
+		gameFinished = true
+		gameEnded.emit(team)
+		print("dead " + team)
+	
+	wiz.get_node("LifeComponent").connect("dead",callback)
 	wizardsInGame.append(wiz)
 	wiz.connect("finishedRound", turnFinished)
 	return wiz
 	
 func _ready() -> void:
 	wizard = load("res://wizard/wizard.tscn")
+	startGame()
+
+func startGame():
 	var spawnPositions = $TerrainGenerator.get_spawn_positions()
-	SwpanWiz($TerrainGenerator.position + (Vector2) (spawnPositions[0]) * 64 + Vector2(32,32)).setTeam("A")
-	SwpanWiz($TerrainGenerator.position + (Vector2) (spawnPositions[1]) * 64 + Vector2(32,32)).setTeam("B")
+	SpawnWiz($TerrainGenerator.position + (Vector2) (spawnPositions[0]) * 64 + Vector2(32,32), "A")
+	SpawnWiz($TerrainGenerator.position + (Vector2) (spawnPositions[1]) * 64 + Vector2(32,32), "B")
 	
 	nextWizardTurn()
-	
+	gameStarted.emit()
 
 func turnFinished():
 	if(gameFinished): return
@@ -38,3 +47,12 @@ func nextWizardTurn():
 	var wiz = wizardsInGame[currentWizardTurn]
 	wiz.restoreRoundState()
 	currentWizardTurn = (currentWizardTurn + 1)%wizardsInGame.size()
+
+
+func _on_restart_pressed() -> void:
+	$TerrainGenerator.regenerate()
+	gameFinished = false
+	for wizard in wizardsInGame:
+		wizard.queue_free()
+	wizardsInGame.clear()
+	startGame()

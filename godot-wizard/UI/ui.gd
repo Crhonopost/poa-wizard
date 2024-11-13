@@ -7,5 +7,17 @@ func logMessage(content: String):
 	labelMsg.text = content
 	log.add_child(labelMsg)
 
-func _ready() -> void:
-	print($"../Environement".getFlowersPosition())
+func setLoser(wizardType):
+	if(wizardType == "B"):
+		$FinishedGame/HBoxContainer/WinnerText.text = "Wizard A won !"
+		$FinishedGame/HBoxContainer/CenterContainer/WizardIdle.play("wizardA")
+	else:
+		$FinishedGame/HBoxContainer/WinnerText.text = "Wizard B won !"
+		$FinishedGame/HBoxContainer/CenterContainer/WizardIdle.play("wizardB")
+
+func gameFinished(loser):
+	setLoser(loser)
+	visible = true
+
+func gameStarted():
+	visible = false

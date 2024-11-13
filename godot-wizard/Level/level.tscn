@@ -1,24 +1,64 @@
-[gd_scene load_steps=5 format=3 uid="uid://c6tftftmajws1"]
+[gd_scene load_steps=6 format=3 uid="uid://c6tftftmajws1"]
 
 [ext_resource type="Script" path="res://Level/level.gd" id="1_1cw78"]
 [ext_resource type="Script" path="res://Level/environementInterface.gd" id="2_e4lgw"]
 [ext_resource type="PackedScene" uid="uid://ycu0wygg2xmh" path="res://Environement/terrain/terrain_generator.tscn" id="3_i05ra"]
 [ext_resource type="PackedScene" uid="uid://d36tw4r4q2nc2" path="res://UI/ui.tscn" id="3_p17gy"]
+[ext_resource type="PackedScene" uid="uid://ca0a0qceu1jl2" path="res://wizard/wizardIdle.tscn" id="5_b7ghc"]
 
-[node name="Level" type="Node2D"]
+[node name="InstanceManager" type="Node"]
+
+[node name="Level" type="Node2D" parent="."]
 script = ExtResource("1_1cw78")
 
-[node name="Environement" type="Node" parent="." groups=["environement"]]
+[node name="Environement" type="Node" parent="Level" groups=["environement"]]
 script = ExtResource("2_e4lgw")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(711, 470)
-zoom = Vector2(0.5, 0.5)
+[node name="TerrainGenerator" parent="Level" instance=ExtResource("3_i05ra")]
 
-[node name="TerrainGenerator" parent="." instance=ExtResource("3_i05ra")]
-position = Vector2(256, 192)
+[node name="Projectiles" type="Node2D" parent="Level" groups=["fixed_space"]]
 
 [node name="UI" parent="." instance=ExtResource("3_p17gy")]
-metadata/_edit_use_anchors_ = true
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="Projectiles" type="Node2D" parent="." groups=["fixed_space"]]
+[node name="FinishedGame" type="VBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -57.0
+offset_top = -17.5
+offset_right = 57.0
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/FinishedGame"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="WinnerText" type="Label" parent="UI/FinishedGame/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Wizard A won !"
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/FinishedGame/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="WizardIdle" parent="UI/FinishedGame/HBoxContainer/CenterContainer" instance=ExtResource("5_b7ghc")]
+scale = Vector2(2, 2)
+offset = Vector2(32, 0)
+
+[node name="Restart" type="Button" parent="UI/FinishedGame"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Restart ?"
+
+[connection signal="gameEnded" from="Level" to="UI" method="gameFinished"]
+[connection signal="gameStarted" from="Level" to="UI" method="gameStarted"]
+[connection signal="pressed" from="UI/FinishedGame/Restart" to="Level" method="_on_restart_pressed"]

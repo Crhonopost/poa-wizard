@@ -82,12 +82,23 @@ func get_spell_positions():
 	var callable = func (node):
 		return node.global_position
 	return placedSpells.map(callable)
+	
+func regenerate():
+	for coord in tabWall:
+		wallMap.erase_cell(coord)
+	tabWall.clear()
+	for flower in placedSpells:
+		flower.queue_free()
+	placedSpells.clear()
+	place_random_tiles()
+	place_spells()
+	
+	groundMap.notify_runtime_tile_data_update()
+	groundMap.update_internals()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#print(get_cell_atlas_coords(0,Vector2i(0, 0)))
-	place_random_tiles()
-	place_spells()
+	regenerate()
 
 func _physics_process(delta: float) -> void:
 	check_flowers()
