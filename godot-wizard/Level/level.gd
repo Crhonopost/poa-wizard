@@ -28,7 +28,6 @@ func SpawnWiz(spawnPos, team):
 	
 func _ready() -> void:
 	wizard = load("res://wizard/wizard.tscn")
-	startGame()
 
 func startGame():
 	var spawnPositions = $TerrainGenerator.get_spawn_positions()
@@ -55,4 +54,8 @@ func _on_restart_pressed() -> void:
 	for wizard in wizardsInGame:
 		wizard.queue_free()
 	wizardsInGame.clear()
+	startGame()
+
+
+func _on_start_pressed() -> void:
 	startGame()

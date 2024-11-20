@@ -120,7 +120,6 @@ path_desired_distance = 5.0
 target_desired_distance = 5.0
 path_max_distance = 64.0
 path_postprocessing = 1
-debug_enabled = true
 debug_path_custom_color = Color(0.188235, 1, 0.188235, 1)
 
 [node name="ColectionArea" type="Area2D" parent="."]

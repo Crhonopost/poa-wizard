@@ -21,3 +21,8 @@ func gameFinished(loser):
 
 func gameStarted():
 	visible = false
+
+
+func _on_start_pressed() -> void:
+	$FinishedGame.visible = true
+	$Start.visible = false
