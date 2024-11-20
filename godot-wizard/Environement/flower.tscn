@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dawlr045yvdmt"]
 
-[ext_resource type="Texture2D" uid="uid://dh850kptbdmvp" path="res://icon.svg" id="1_qs25t"]
 [ext_resource type="Script" path="res://Environement/flower.gd" id="1_rl6xt"]
 [ext_resource type="PackedScene" uid="uid://dp8ox6w60jli5" path="res://components/collectible_component.tscn" id="2_i4mho"]
+[ext_resource type="Texture2D" uid="uid://bogh5l3vye3uj" path="res://Environement/Flowers_Without_Outline_Spritesheet.png" id="2_l5yyi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a3ugt"]
 size = Vector2(36, 38)
@@ -11,8 +11,10 @@ size = Vector2(36, 38)
 script = ExtResource("1_rl6xt")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_qs25t")
+texture_filter = 1
+texture = ExtResource("2_l5yyi")
+region_enabled = true
+region_rect = Rect2(99, 32.434, 24, 30)
 
 [node name="CollectibleComponent" parent="." instance=ExtResource("2_i4mho")]
 
